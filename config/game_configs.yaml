@@ -1,0 +1,20 @@
+standard:
+  board_size: 9
+  walls_per_player: 10
+  no_progress_limit: 50
+  history_length: 4
+  draw_penalty: -0.05
+
+small:
+  board_size: 5
+  walls_per_player: 5
+  no_progress_limit: 30
+  history_length: 4
+  draw_penalty: -0.05
+
+tiny:
+  board_size: 3
+  walls_per_player: 2
+  no_progress_limit: 20
+  history_length: 4
+  draw_penalty: -0.05
