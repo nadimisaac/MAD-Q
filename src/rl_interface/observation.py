@@ -10,11 +10,9 @@ from torch import Tensor
 from ..pathfinding.astar import astar_find_path
 
 class Observation:
-    """Encodes State into neural network input tensors (8-plane spatial representation).
-
-    Converts board state into a fully spatial (8, H, W) tensor with canonicalization.
+    """Encodes State into neural network input tensors (9-plane spatial representation).
     
-    The 8 planes (for 9x9 board) are:
+    The 9 planes (for 9x9 board) are:
     - Plane 0: Current player pawn position (binary, one-hot)
     - Plane 1: Opponent pawn position (binary, one-hot)
     - Plane 2: Current player walls remaining (constant, normalized [0,1])
@@ -23,14 +21,15 @@ class Observation:
     - Plane 5: Vertical walls (binary - both cells marked per wall)
     - Plane 6: Current player distance to goal (constant, normalized A* distance, broadcasted)
     - Plane 7: Opponent distance to goal (constant, normalized A* distance, broadcasted)
-    - TODO: Plane 8 (Tentative): Turn Indicator (binary, 1 represents P1, 0 represents P2)
+    - Plane 8: Turn Indicator (binary, 1 represents P1, 0 represents P2)
     
-    Canonicalization (Tentative - Do we want a turn indicator and canonicalization ..): 
+    TENTATIVE: Canonicalization (Do we want a turn indicator and canonicalization ...): 
     - Always encodes from current player's perspective
     - Current player at bottom, moving toward top
     - This way the network doesn't have the additional complexity in its learning 
     - Network should not care whose turn it is and how they will play based on the turn
     - Just learn how to get to the top row when you are the one playing
+    - AlphaZero paper canonicalizes the state I believe ? but we are not sure if we want to do this ..
     """
 
     def __init__(
@@ -49,7 +48,7 @@ class Observation:
         self.board_size = board_size
         self.max_walls = max_walls
         self.device = device
-        self.num_planes = 8
+        self.num_planes = 9
 
     def encode(self, state) -> Tensor:
         """Encode State into spatial tensor with canonicalization(?).
@@ -58,11 +57,14 @@ class Observation:
             state: Current State object to encode
 
         Returns:
-            (8, H, W) torch tensor of spatial features
+            (9, H, W) torch tensor of spatial features
         """
         # Canonicalize: if Player 2's turn, flip perspective
         # This makes the current player always appear at the bottom
-        canonical_state = state if state.current_player == 1 else state.flip_perspective()
+        # TODO: Tentative: Decide if we want to canonicalize the state?
+        # Would need to implement the flip_perspective method in the State class
+
+        # canonical_state = state if state.current_player == 1 else state.flip_perspective()
         
         # Initialize output tensor
         observation = torch.zeros(
@@ -75,35 +77,38 @@ class Observation:
         
         # Plane 0: Current player pawn position (one-hot)
         observation[0] = self._encode_pawn_position(
-            canonical_state.player1_pos.to_tuple()
+            state.player1_pos.to_tuple()
         )
         
         # Plane 1: Opponent pawn position (one-hot)
         observation[1] = self._encode_pawn_position(
-            canonical_state.player2_pos.to_tuple()
+            state.player2_pos.to_tuple()
         )
         
         # Plane 2: Current player walls remaining (constant)
         observation[2] = self._encode_walls_remaining(
-            canonical_state.walls_remaining[1]
+            state.walls_remaining[1]
         )
         
         # Plane 3: Opponent walls remaining (constant)
         observation[3] = self._encode_walls_remaining(
-            canonical_state.walls_remaining[2]
+            state.walls_remaining[2]
         )
         
         # Plane 4: Horizontal walls (binary with both cells marked)
-        observation[4] = self._encode_walls(canonical_state, 'h')
+        observation[4] = self._encode_walls(state, 'h')
         
         # Plane 5: Vertical walls (binary with both cells marked)
-        observation[5] = self._encode_walls(canonical_state, 'v')
+        observation[5] = self._encode_walls(state, 'v')
         
         # Plane 6: Current player distance to goal (constant)
-        observation[6] = self._encode_distance_to_goal(canonical_state, player=1)
+        observation[6] = self._encode_distance_to_goal(state, player=1)
         
         # Plane 7: Opponent distance to goal (constant)
-        observation[7] = self._encode_distance_to_goal(canonical_state, player=2)
+        observation[7] = self._encode_distance_to_goal(state, player=2)
+
+        # Plane 8: Turn indicator (binary, 1 represents P1, 0 represents P2)
+        observation[8] = self._encode_turn_indicator(state.current_player)
         
         return observation
 
@@ -229,6 +234,21 @@ class Observation:
             device=self.device
         )
 
+    def _encode_turn_indicator(self, player: int) -> Tensor:
+        """Encode turn indicator as binary plane.
+
+        Args:
+            player: Player number (1 or 2)
+
+        Returns:
+            (H, W) binary tensor with 1 at position, 0 elsewhere
+        """
+        return torch.full(
+            (self.board_size, self.board_size),
+            1 if player == 1 else 0,
+            dtype=torch.float32,
+            device=self.device
+        )
 
 def batch_encode_states(
     states: list,
@@ -241,7 +261,7 @@ def batch_encode_states(
         observation: Observation encoder instance
 
     Returns:
-        (N, 8, H, W) torch tensor batch
+        (N, 9, H, W) torch tensor batch
     """
     encoded = [observation.encode(state) for state in states]
     return torch.stack(encoded, dim=0)
