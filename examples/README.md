@@ -36,6 +36,21 @@ uv run python examples/play_human_vs_baseline.py [--config BOARD_SIZE] [--human-
   - `tiny`: 3×3 board, 2 walls per player
 - `--human-player [1|2]`: Which player you control (default: 1, only for vs agent games)
 
+#### Human vs Minimax Agent
+Play against an alpha-beta minimax agent with configurable search depth:
+```bash
+uv run python examples/play_human_vs_minimax.py [--config BOARD_SIZE] [--human-player PLAYER_NUM] [--depth N] [--max-wall-moves M]
+```
+
+**Minimax Agent Highlights:**
+- Minimax search with alpha-beta pruning and move ordering
+- Heuristic considers path distance, pawn progress, and wall reserves
+- Optional pruning of low-priority wall placements via `--max-wall-moves`
+
+**Options:**
+- `--depth N`: Search depth in plies (default: 3)
+- `--max-wall-moves M`: Limit explored wall placements per node (default: 8, set `0` for no limit)
+
 ### 🤖 Agent Examples (Coming Soon)
 
 The following examples are placeholders for future implementations:

@@ -89,6 +89,29 @@ uv run python examples/play_human_vs_baseline.py
 uv run python examples/play_human_vs_baseline.py --config small --human-player 2
 ```
 
+### Human vs Minimax Agent
+
+Challenge a minimax agent that searches ahead using alpha-beta pruning:
+
+```bash
+uv run python examples/play_human_vs_minimax.py
+```
+
+Options:
+- `--config [standard|small|tiny]` - Choose board size (default: standard)
+- `--human-player [1|2]` - Choose which player you control (default: 1)
+- `--depth N` - Set search depth in plies (default: 3)
+- `--max-wall-moves M` - Limit wall placements explored per node (default: 8, use 0 for no limit)
+
+Examples:
+```bash
+# Play as Player 1 with deeper search
+uv run python examples/play_human_vs_minimax.py --depth 4
+
+# Play as Player 2 on a tiny board with no wall pruning
+uv run python examples/play_human_vs_minimax.py --config tiny --human-player 2 --max-wall-moves 0
+```
+
 ### Move Notation
 
 When playing, use the following notation:
