@@ -1,0 +1,410 @@
+{
+  "timestamp_utc": "2025-11-18T00:47:46Z",
+  "config": {
+    "name": "standard",
+    "board_size": 9,
+    "walls_per_player": 10
+  },
+  "minimax_player": 1,
+  "opponent": {
+    "key": "random",
+    "label": "Random"
+  },
+  "search_parameters": {
+    "depth": 4,
+    "max_wall_moves": 8
+  },
+  "result": {
+    "winner": 1,
+    "reason": "goal_reached",
+    "num_moves": 35
+  },
+  "moves": [
+    {
+      "turn": 1,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        1,
+        4
+      ],
+      "notation": "e2"
+    },
+    {
+      "turn": 2,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "h_wall",
+      "position": [
+        4,
+        2
+      ],
+      "notation": "c5h"
+    },
+    {
+      "turn": 3,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        2,
+        4
+      ],
+      "notation": "e3"
+    },
+    {
+      "turn": 4,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        8,
+        5
+      ],
+      "notation": "f9"
+    },
+    {
+      "turn": 5,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        3,
+        4
+      ],
+      "notation": "e4"
+    },
+    {
+      "turn": 6,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "v_wall",
+      "position": [
+        4,
+        1
+      ],
+      "notation": "b5v"
+    },
+    {
+      "turn": 7,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "h_wall",
+      "position": [
+        6,
+        4
+      ],
+      "notation": "e7h"
+    },
+    {
+      "turn": 8,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8"
+    },
+    {
+      "turn": 9,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "v_wall",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8v"
+    },
+    {
+      "turn": 10,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        7,
+        4
+      ],
+      "notation": "e8"
+    },
+    {
+      "turn": 11,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "v_wall",
+      "position": [
+        6,
+        3
+      ],
+      "notation": "d7v"
+    },
+    {
+      "turn": 12,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "h_wall",
+      "position": [
+        0,
+        4
+      ],
+      "notation": "e1h"
+    },
+    {
+      "turn": 13,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "h_wall",
+      "position": [
+        7,
+        3
+      ],
+      "notation": "d8h"
+    },
+    {
+      "turn": 14,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8"
+    },
+    {
+      "turn": 15,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        4,
+        4
+      ],
+      "notation": "e5"
+    },
+    {
+      "turn": 16,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        7,
+        4
+      ],
+      "notation": "e8"
+    },
+    {
+      "turn": 17,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        5,
+        4
+      ],
+      "notation": "e6"
+    },
+    {
+      "turn": 18,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8"
+    },
+    {
+      "turn": 19,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        5,
+        3
+      ],
+      "notation": "d6"
+    },
+    {
+      "turn": 20,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "v_wall",
+      "position": [
+        6,
+        2
+      ],
+      "notation": "c7v"
+    },
+    {
+      "turn": 21,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        5,
+        4
+      ],
+      "notation": "e6"
+    },
+    {
+      "turn": 22,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        8,
+        5
+      ],
+      "notation": "f9"
+    },
+    {
+      "turn": 23,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        5,
+        3
+      ],
+      "notation": "d6"
+    },
+    {
+      "turn": 24,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "v_wall",
+      "position": [
+        5,
+        7
+      ],
+      "notation": "h6v"
+    },
+    {
+      "turn": 25,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        5,
+        2
+      ],
+      "notation": "c6"
+    },
+    {
+      "turn": 26,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        8,
+        4
+      ],
+      "notation": "e9"
+    },
+    {
+      "turn": 27,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        5,
+        3
+      ],
+      "notation": "d6"
+    },
+    {
+      "turn": 28,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        8,
+        5
+      ],
+      "notation": "f9"
+    },
+    {
+      "turn": 29,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        5,
+        2
+      ],
+      "notation": "c6"
+    },
+    {
+      "turn": 30,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "move",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8"
+    },
+    {
+      "turn": 31,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        6,
+        2
+      ],
+      "notation": "c7"
+    },
+    {
+      "turn": 32,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "h_wall",
+      "position": [
+        6,
+        0
+      ],
+      "notation": "a7h"
+    },
+    {
+      "turn": 33,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        7,
+        2
+      ],
+      "notation": "c8"
+    },
+    {
+      "turn": 34,
+      "player": 2,
+      "agent": "Random agent",
+      "action_type": "h_wall",
+      "position": [
+        2,
+        6
+      ],
+      "notation": "g3h"
+    },
+    {
+      "turn": 35,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        8,
+        2
+      ],
+      "notation": "c9"
+    }
+  ],
+  "final_board_ascii": "   a   b   c   d   e   f   g   h   i\n9  .   .   1   .   .   . | .   .   .  9\n               \u2550\u2550\u2550\u2550\u2550                \n8  .   .   . | . | .   2 | .   .   .  8\n   \u2550\u2550\u2550\u2550\u2550           \u2550\u2550\u2550\u2550\u2550            \n7  .   .   . | . | .   .   .   . | .  7\n                                    \n6  .   . | .   .   .   .   .   . | .  6\n           \u2550\u2550\u2550\u2550\u2550                    \n5  .   . | .   .   .   .   .   .   .  5\n                                    \n4  .   .   .   .   .   .   .   .   .  4\n                           \u2550\u2550\u2550\u2550\u2550    \n3  .   .   .   .   .   .   .   .   .  3\n                                    \n2  .   .   .   .   .   .   .   .   .  2\n                   \u2550\u2550\u2550\u2550\u2550            \n1  .   .   .   .   .   .   .   .   .  1\n   a   b   c   d   e   f   g   h   i"
+}

@@ -112,6 +112,27 @@ uv run python examples/play_human_vs_minimax.py --depth 4
 uv run python examples/play_human_vs_minimax.py --config tiny --human-player 2 --max-wall-moves 0
 ```
 
+### Minimax vs Automated Agents
+
+Run automated matches where the minimax agent battles other built-in agents (random and baseline). Every move is streamed to the CLI and a JSON log containing the complete move history plus the final result is saved under `examples/match_logs`.
+
+```bash
+# Minimax (Player 1) vs random agent, log stored automatically
+uv run python examples/play_minimax_vs_agents.py
+
+# Play both automated opponents back-to-back with deeper search
+uv run python examples/play_minimax_vs_agents.py --opponent all --depth 4
+
+# Make minimax control Player 2 on the small board configuration
+uv run python examples/play_minimax_vs_agents.py --config small --minimax-player 2
+```
+
+Key options:
+- `--opponent [random|baseline|all]` - Choose specific opponent or face all automated agents sequentially.
+- `--depth` / `--max-wall-moves` - Same search controls as the human-vs-minimax example.
+- `--log-dir PATH` - Customize where match logs (with move history + winner metadata) are archived.
+- `--show-board` - Render the board after every automated move for step-by-step visualization.
+
 ### Move Notation
 
 When playing, use the following notation:
