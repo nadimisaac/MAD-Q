@@ -7,6 +7,7 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
+from time import perf_counter
 from typing import Dict, List, Optional, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -160,6 +161,10 @@ def play_minimax_match(
         minimax_player: "Minimax agent",
         3 - minimax_player: f"{opponent_label} agent",
     }
+    agent_keys = {
+        minimax_player: "minimax",
+        3 - minimax_player: opponent_key,
+    }
 
     move_history: List[Dict[str, object]] = []
 
@@ -168,7 +173,9 @@ def play_minimax_match(
         current_agent = agents[current_player]
 
         try:
+            decision_start = perf_counter()
             action_type, position = current_agent.select_action(state)
+            decision_ms = (perf_counter() - decision_start) * 1000.0
         except KeyboardInterrupt:
             print("\nMatch interrupted by user.")
             return None
@@ -182,7 +189,8 @@ def play_minimax_match(
         turn_number = len(move_history) + 1
         print(
             f"Turn {turn_number:03d} - {labels[current_player]} "
-            f"(Player {current_player}) plays: {notation} ({move_type})"
+            f"(Player {current_player}) plays: {notation} ({move_type}) "
+            f"[{decision_ms:.1f} ms]"
         )
 
         move_history.append(
@@ -190,6 +198,8 @@ def play_minimax_match(
                 "turn": turn_number,
                 "player": current_player,
                 "agent": labels[current_player],
+                "agent_key": agent_keys[current_player],
+                "decision_time_ms": round(decision_ms, 3),
                 "action_type": action_type,
                 "position": [position[0], position[1]],
                 "notation": notation,

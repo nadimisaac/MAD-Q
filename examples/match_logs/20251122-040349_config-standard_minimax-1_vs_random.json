@@ -1,0 +1,324 @@
+{
+  "timestamp_utc": "2025-11-22T04:03:49Z",
+  "config": {
+    "name": "standard",
+    "board_size": 9,
+    "walls_per_player": 10
+  },
+  "minimax_player": 1,
+  "opponent": {
+    "key": "random",
+    "label": "Random"
+  },
+  "search_parameters": {
+    "depth": 4,
+    "max_wall_moves": 8
+  },
+  "result": {
+    "winner": 1,
+    "reason": "goal_reached",
+    "num_moves": 23
+  },
+  "moves": [
+    {
+      "turn": 1,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 960.246,
+      "action_type": "move",
+      "position": [
+        1,
+        4
+      ],
+      "notation": "e2"
+    },
+    {
+      "turn": 2,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 4.498,
+      "action_type": "move",
+      "position": [
+        8,
+        5
+      ],
+      "notation": "f9"
+    },
+    {
+      "turn": 3,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1019.562,
+      "action_type": "move",
+      "position": [
+        2,
+        4
+      ],
+      "notation": "e3"
+    },
+    {
+      "turn": 4,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 4.214,
+      "action_type": "move",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8"
+    },
+    {
+      "turn": 5,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 840.182,
+      "action_type": "move",
+      "position": [
+        3,
+        4
+      ],
+      "notation": "e4"
+    },
+    {
+      "turn": 6,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 3.692,
+      "action_type": "v_wall",
+      "position": [
+        5,
+        7
+      ],
+      "notation": "h6v"
+    },
+    {
+      "turn": 7,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 789.457,
+      "action_type": "move",
+      "position": [
+        4,
+        4
+      ],
+      "notation": "e5"
+    },
+    {
+      "turn": 8,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 3.278,
+      "action_type": "v_wall",
+      "position": [
+        1,
+        7
+      ],
+      "notation": "h2v"
+    },
+    {
+      "turn": 9,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 725.667,
+      "action_type": "move",
+      "position": [
+        5,
+        4
+      ],
+      "notation": "e6"
+    },
+    {
+      "turn": 10,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 3.137,
+      "action_type": "h_wall",
+      "position": [
+        7,
+        6
+      ],
+      "notation": "g8h"
+    },
+    {
+      "turn": 11,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 693.032,
+      "action_type": "move",
+      "position": [
+        5,
+        5
+      ],
+      "notation": "f6"
+    },
+    {
+      "turn": 12,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 3.034,
+      "action_type": "move",
+      "position": [
+        7,
+        6
+      ],
+      "notation": "g8"
+    },
+    {
+      "turn": 13,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1037.96,
+      "action_type": "move",
+      "position": [
+        5,
+        6
+      ],
+      "notation": "g6"
+    },
+    {
+      "turn": 14,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 4.041,
+      "action_type": "h_wall",
+      "position": [
+        6,
+        3
+      ],
+      "notation": "d7h"
+    },
+    {
+      "turn": 15,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1244.772,
+      "action_type": "move",
+      "position": [
+        5,
+        5
+      ],
+      "notation": "f6"
+    },
+    {
+      "turn": 16,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 2.887,
+      "action_type": "move",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8"
+    },
+    {
+      "turn": 17,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1486.206,
+      "action_type": "h_wall",
+      "position": [
+        7,
+        3
+      ],
+      "notation": "d8h"
+    },
+    {
+      "turn": 18,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 2.839,
+      "action_type": "move",
+      "position": [
+        7,
+        6
+      ],
+      "notation": "g8"
+    },
+    {
+      "turn": 19,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 622.276,
+      "action_type": "move",
+      "position": [
+        6,
+        5
+      ],
+      "notation": "f7"
+    },
+    {
+      "turn": 20,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 2.509,
+      "action_type": "v_wall",
+      "position": [
+        7,
+        0
+      ],
+      "notation": "a8v"
+    },
+    {
+      "turn": 21,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 462.27,
+      "action_type": "move",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8"
+    },
+    {
+      "turn": 22,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 2.192,
+      "action_type": "h_wall",
+      "position": [
+        0,
+        6
+      ],
+      "notation": "g1h"
+    },
+    {
+      "turn": 23,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 345.477,
+      "action_type": "move",
+      "position": [
+        8,
+        5
+      ],
+      "notation": "f9"
+    }
+  ],
+  "final_board_ascii": "   a   b   c   d   e   f   g   h   i\n9  . | .   .   .   .   1   .   .   .  9\n               \u2550\u2550\u2550\u2550\u2550       \u2550\u2550\u2550\u2550\u2550    \n8  . | .   .   .   .   .   2   .   .  8\n               \u2550\u2550\u2550\u2550\u2550                \n7  .   .   .   .   .   .   .   . | .  7\n                                    \n6  .   .   .   .   .   .   .   . | .  6\n                                    \n5  .   .   .   .   .   .   .   .   .  5\n                                    \n4  .   .   .   .   .   .   .   .   .  4\n                                    \n3  .   .   .   .   .   .   .   . | .  3\n                                    \n2  .   .   .   .   .   .   .   . | .  2\n                           \u2550\u2550\u2550\u2550\u2550    \n1  .   .   .   .   .   .   .   .   .  1\n   a   b   c   d   e   f   g   h   i"
+}

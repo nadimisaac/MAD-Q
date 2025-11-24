@@ -133,6 +133,31 @@ Key options:
 - `--log-dir PATH` - Customize where match logs (with move history + winner metadata) are archived.
 - `--show-board` - Render the board after every automated move for step-by-step visualization.
 
+Each move recorded in automated matches now includes the agent key and decision time in milliseconds (`decision_time_ms`) for both the minimax and heuristic opponents.
+
+### Move Time Statistics
+
+Summarize move decision times across saved logs:
+
+```bash
+uv run python examples/summarize_move_times.py --agent minimax
+# To inspect the heuristic baseline instead:
+uv run python examples/summarize_move_times.py --agent baseline
+```
+
+The summary groups samples by agent and configuration (for minimax: depth and wall branching limit) and reports the mean and variance of per-move timings.
+
+### Batch Agent Benchmarks
+
+Run repeated matchups and print win/loss rates plus move-time statistics (mean + variance):
+
+```bash
+# Baseline vs Random, Minimax vs Baseline, Minimax vs Random (10 games each)
+uv run python examples/run_agent_benchmarks.py -n 10 --config standard --depth 3
+```
+
+The script alternates starting players for fairness and reports per-agent win/loss/draw counts along with decision-time summaries. Use `--max-wall-moves 0` to disable wall-branch pruning for minimax.
+
 ### Move Notation
 
 When playing, use the following notation:
