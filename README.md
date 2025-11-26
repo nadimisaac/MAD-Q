@@ -89,6 +89,75 @@ uv run python examples/play_human_vs_baseline.py
 uv run python examples/play_human_vs_baseline.py --config small --human-player 2
 ```
 
+### Human vs Minimax Agent
+
+Challenge a minimax agent that searches ahead using alpha-beta pruning:
+
+```bash
+uv run python examples/play_human_vs_minimax.py
+```
+
+Options:
+- `--config [standard|small|tiny]` - Choose board size (default: standard)
+- `--human-player [1|2]` - Choose which player you control (default: 1)
+- `--depth N` - Set search depth in plies (default: 3)
+- `--max-wall-moves M` - Limit wall placements explored per node (default: 8, use 0 for no limit)
+
+Examples:
+```bash
+# Play as Player 1 with deeper search
+uv run python examples/play_human_vs_minimax.py --depth 4
+
+# Play as Player 2 on a tiny board with no wall pruning
+uv run python examples/play_human_vs_minimax.py --config tiny --human-player 2 --max-wall-moves 0
+```
+
+### Minimax vs Automated Agents
+
+Run automated matches where the minimax agent battles other built-in agents (random and baseline). Every move is streamed to the CLI and a JSON log containing the complete move history plus the final result is saved under `examples/match_logs`.
+
+```bash
+# Minimax (Player 1) vs random agent, log stored automatically
+uv run python examples/play_minimax_vs_agents.py
+
+# Play both automated opponents back-to-back with deeper search
+uv run python examples/play_minimax_vs_agents.py --opponent all --depth 4
+
+# Make minimax control Player 2 on the small board configuration
+uv run python examples/play_minimax_vs_agents.py --config small --minimax-player 2
+```
+
+Key options:
+- `--opponent [random|baseline|all]` - Choose specific opponent or face all automated agents sequentially.
+- `--depth` / `--max-wall-moves` - Same search controls as the human-vs-minimax example.
+- `--log-dir PATH` - Customize where match logs (with move history + winner metadata) are archived.
+- `--show-board` - Render the board after every automated move for step-by-step visualization.
+
+Each move recorded in automated matches now includes the agent key and decision time in milliseconds (`decision_time_ms`) for both the minimax and heuristic opponents.
+
+### Move Time Statistics
+
+Summarize move decision times across saved logs:
+
+```bash
+uv run python examples/summarize_move_times.py --agent minimax
+# To inspect the heuristic baseline instead:
+uv run python examples/summarize_move_times.py --agent baseline
+```
+
+The summary groups samples by agent and configuration (for minimax: depth and wall branching limit) and reports the mean and variance of per-move timings.
+
+### Batch Agent Benchmarks
+
+Run repeated matchups and print win/loss rates plus move-time statistics (mean + variance):
+
+```bash
+# Baseline vs Random, Minimax vs Baseline, Minimax vs Random (10 games each)
+uv run python examples/run_agent_benchmarks.py -n 10 --config standard --depth 3
+```
+
+The script alternates starting players for fairness and reports per-agent win/loss/draw counts along with decision-time summaries. Use `--max-wall-moves 0` to disable wall-branch pruning for minimax.
+
 ### Move Notation
 
 When playing, use the following notation:

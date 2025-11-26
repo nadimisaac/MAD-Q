@@ -1,0 +1,376 @@
+{
+  "timestamp_utc": "2025-11-22T04:07:26Z",
+  "config": {
+    "name": "standard",
+    "board_size": 9,
+    "walls_per_player": 10
+  },
+  "minimax_player": 1,
+  "opponent": {
+    "key": "random",
+    "label": "Random"
+  },
+  "search_parameters": {
+    "depth": 4,
+    "max_wall_moves": 8
+  },
+  "result": {
+    "winner": 1,
+    "reason": "goal_reached",
+    "num_moves": 27
+  },
+  "moves": [
+    {
+      "turn": 1,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1041.062,
+      "action_type": "move",
+      "position": [
+        1,
+        4
+      ],
+      "notation": "e2"
+    },
+    {
+      "turn": 2,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 4.682,
+      "action_type": "h_wall",
+      "position": [
+        2,
+        4
+      ],
+      "notation": "e3h"
+    },
+    {
+      "turn": 3,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1460.57,
+      "action_type": "move",
+      "position": [
+        1,
+        3
+      ],
+      "notation": "d2"
+    },
+    {
+      "turn": 4,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 4.743,
+      "action_type": "move",
+      "position": [
+        7,
+        4
+      ],
+      "notation": "e8"
+    },
+    {
+      "turn": 5,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1004.648,
+      "action_type": "move",
+      "position": [
+        2,
+        3
+      ],
+      "notation": "d3"
+    },
+    {
+      "turn": 6,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 3.991,
+      "action_type": "v_wall",
+      "position": [
+        5,
+        0
+      ],
+      "notation": "a6v"
+    },
+    {
+      "turn": 7,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 876.919,
+      "action_type": "move",
+      "position": [
+        3,
+        3
+      ],
+      "notation": "d4"
+    },
+    {
+      "turn": 8,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 4.101,
+      "action_type": "v_wall",
+      "position": [
+        1,
+        7
+      ],
+      "notation": "h2v"
+    },
+    {
+      "turn": 9,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 778.422,
+      "action_type": "move",
+      "position": [
+        4,
+        3
+      ],
+      "notation": "d5"
+    },
+    {
+      "turn": 10,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 3.581,
+      "action_type": "v_wall",
+      "position": [
+        0,
+        5
+      ],
+      "notation": "f1v"
+    },
+    {
+      "turn": 11,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 736.579,
+      "action_type": "move",
+      "position": [
+        5,
+        3
+      ],
+      "notation": "d6"
+    },
+    {
+      "turn": 12,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 3.222,
+      "action_type": "v_wall",
+      "position": [
+        6,
+        5
+      ],
+      "notation": "f7v"
+    },
+    {
+      "turn": 13,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 904.046,
+      "action_type": "v_wall",
+      "position": [
+        6,
+        3
+      ],
+      "notation": "d7v"
+    },
+    {
+      "turn": 14,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 4.93,
+      "action_type": "v_wall",
+      "position": [
+        6,
+        2
+      ],
+      "notation": "c7v"
+    },
+    {
+      "turn": 15,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1460.072,
+      "action_type": "h_wall",
+      "position": [
+        5,
+        4
+      ],
+      "notation": "e6h"
+    },
+    {
+      "turn": 16,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 3.352,
+      "action_type": "h_wall",
+      "position": [
+        0,
+        1
+      ],
+      "notation": "b1h"
+    },
+    {
+      "turn": 17,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1394.546,
+      "action_type": "move",
+      "position": [
+        6,
+        3
+      ],
+      "notation": "d7"
+    },
+    {
+      "turn": 18,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 3.05,
+      "action_type": "move",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8"
+    },
+    {
+      "turn": 19,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1082.392,
+      "action_type": "h_wall",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8h"
+    },
+    {
+      "turn": 20,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 2.997,
+      "action_type": "move",
+      "position": [
+        7,
+        4
+      ],
+      "notation": "e8"
+    },
+    {
+      "turn": 21,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 1306.199,
+      "action_type": "h_wall",
+      "position": [
+        6,
+        4
+      ],
+      "notation": "e7h"
+    },
+    {
+      "turn": 22,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 2.433,
+      "action_type": "v_wall",
+      "position": [
+        0,
+        4
+      ],
+      "notation": "e1v"
+    },
+    {
+      "turn": 23,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 754.306,
+      "action_type": "h_wall",
+      "position": [
+        5,
+        2
+      ],
+      "notation": "c6h"
+    },
+    {
+      "turn": 24,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 4.361,
+      "action_type": "move",
+      "position": [
+        7,
+        5
+      ],
+      "notation": "f8"
+    },
+    {
+      "turn": 25,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 414.457,
+      "action_type": "move",
+      "position": [
+        7,
+        3
+      ],
+      "notation": "d8"
+    },
+    {
+      "turn": 26,
+      "player": 2,
+      "agent": "Random agent",
+      "agent_key": "random",
+      "decision_time_ms": 4.332,
+      "action_type": "v_wall",
+      "position": [
+        1,
+        6
+      ],
+      "notation": "g2v"
+    },
+    {
+      "turn": 27,
+      "player": 1,
+      "agent": "Minimax agent",
+      "agent_key": "minimax",
+      "decision_time_ms": 349.146,
+      "action_type": "move",
+      "position": [
+        8,
+        3
+      ],
+      "notation": "d9"
+    }
+  ],
+  "final_board_ascii": "   a   b   c   d   e   f   g   h   i\n9  .   .   .   1   .   .   .   .   .  9\n                       \u2550\u2550\u2550\u2550\u2550        \n8  .   .   . | . | .   2 | .   .   .  8\n                   \u2550\u2550\u2550\u2550\u2550            \n7  . | .   . | . | .   . | .   .   .  7\n           \u2550\u2550\u2550\u2550\u2550   \u2550\u2550\u2550\u2550\u2550            \n6  . | .   .   .   .   .   .   .   .  6\n                                    \n5  .   .   .   .   .   .   .   .   .  5\n                                    \n4  .   .   .   .   .   .   .   .   .  4\n                   \u2550\u2550\u2550\u2550\u2550            \n3  .   .   .   .   .   .   . | . | .  3\n                                    \n2  .   .   .   .   . | . | . | . | .  2\n       \u2550\u2550\u2550\u2550\u2550                        \n1  .   .   .   .   . | . | .   .   .  1\n   a   b   c   d   e   f   g   h   i"
+}
