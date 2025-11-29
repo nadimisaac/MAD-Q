@@ -1,0 +1,586 @@
+{
+  "timestamp_utc": "2025-11-18T02:28:18Z",
+  "config": {
+    "name": "standard",
+    "board_size": 9,
+    "walls_per_player": 10
+  },
+  "minimax_player": 1,
+  "opponent": {
+    "key": "baseline",
+    "label": "Baseline"
+  },
+  "search_parameters": {
+    "depth": 4,
+    "max_wall_moves": 8
+  },
+  "result": {
+    "winner": 1,
+    "reason": "goal_reached",
+    "num_moves": 51
+  },
+  "moves": [
+    {
+      "turn": 1,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        1,
+        4
+      ],
+      "notation": "e2"
+    },
+    {
+      "turn": 2,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "h_wall",
+      "position": [
+        1,
+        4
+      ],
+      "notation": "e2h"
+    },
+    {
+      "turn": 3,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        1,
+        3
+      ],
+      "notation": "d2"
+    },
+    {
+      "turn": 4,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        7,
+        4
+      ],
+      "notation": "e8"
+    },
+    {
+      "turn": 5,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        2,
+        3
+      ],
+      "notation": "d3"
+    },
+    {
+      "turn": 6,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "h_wall",
+      "position": [
+        2,
+        3
+      ],
+      "notation": "d3h"
+    },
+    {
+      "turn": 7,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        2,
+        2
+      ],
+      "notation": "c3"
+    },
+    {
+      "turn": 8,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        6,
+        4
+      ],
+      "notation": "e7"
+    },
+    {
+      "turn": 9,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        3,
+        2
+      ],
+      "notation": "c4"
+    },
+    {
+      "turn": 10,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "h_wall",
+      "position": [
+        3,
+        1
+      ],
+      "notation": "b4h"
+    },
+    {
+      "turn": 11,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        3,
+        3
+      ],
+      "notation": "d4"
+    },
+    {
+      "turn": 12,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        5,
+        4
+      ],
+      "notation": "e6"
+    },
+    {
+      "turn": 13,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        4,
+        3
+      ],
+      "notation": "d5"
+    },
+    {
+      "turn": 14,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "h_wall",
+      "position": [
+        4,
+        2
+      ],
+      "notation": "c5h"
+    },
+    {
+      "turn": 15,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        4,
+        4
+      ],
+      "notation": "e5"
+    },
+    {
+      "turn": 16,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        6,
+        4
+      ],
+      "notation": "e7"
+    },
+    {
+      "turn": 17,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        4,
+        5
+      ],
+      "notation": "f5"
+    },
+    {
+      "turn": 18,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        5,
+        4
+      ],
+      "notation": "e6"
+    },
+    {
+      "turn": 19,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        5,
+        5
+      ],
+      "notation": "f6"
+    },
+    {
+      "turn": 20,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        4,
+        4
+      ],
+      "notation": "e5"
+    },
+    {
+      "turn": 21,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "v_wall",
+      "position": [
+        3,
+        4
+      ],
+      "notation": "e4v"
+    },
+    {
+      "turn": 22,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "h_wall",
+      "position": [
+        5,
+        5
+      ],
+      "notation": "f6h"
+    },
+    {
+      "turn": 23,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "h_wall",
+      "position": [
+        3,
+        3
+      ],
+      "notation": "d4h"
+    },
+    {
+      "turn": 24,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        5,
+        4
+      ],
+      "notation": "e6"
+    },
+    {
+      "turn": 25,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        5,
+        3
+      ],
+      "notation": "d6"
+    },
+    {
+      "turn": 26,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        5,
+        5
+      ],
+      "notation": "f6"
+    },
+    {
+      "turn": 27,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "v_wall",
+      "position": [
+        4,
+        5
+      ],
+      "notation": "f5v"
+    },
+    {
+      "turn": 28,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        4,
+        5
+      ],
+      "notation": "f5"
+    },
+    {
+      "turn": 29,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "h_wall",
+      "position": [
+        3,
+        5
+      ],
+      "notation": "f4h"
+    },
+    {
+      "turn": 30,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        5,
+        5
+      ],
+      "notation": "f6"
+    },
+    {
+      "turn": 31,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        6,
+        3
+      ],
+      "notation": "d7"
+    },
+    {
+      "turn": 32,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        5,
+        4
+      ],
+      "notation": "e6"
+    },
+    {
+      "turn": 33,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        7,
+        3
+      ],
+      "notation": "d8"
+    },
+    {
+      "turn": 34,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "h_wall",
+      "position": [
+        7,
+        2
+      ],
+      "notation": "c8h"
+    },
+    {
+      "turn": 35,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "v_wall",
+      "position": [
+        4,
+        3
+      ],
+      "notation": "d5v"
+    },
+    {
+      "turn": 36,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        6,
+        4
+      ],
+      "notation": "e7"
+    },
+    {
+      "turn": 37,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "v_wall",
+      "position": [
+        6,
+        5
+      ],
+      "notation": "f7v"
+    },
+    {
+      "turn": 38,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "v_wall",
+      "position": [
+        7,
+        3
+      ],
+      "notation": "d8v"
+    },
+    {
+      "turn": 39,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        6,
+        3
+      ],
+      "notation": "d7"
+    },
+    {
+      "turn": 40,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        5,
+        4
+      ],
+      "notation": "e6"
+    },
+    {
+      "turn": 41,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "h_wall",
+      "position": [
+        4,
+        6
+      ],
+      "notation": "g5h"
+    },
+    {
+      "turn": 42,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "h_wall",
+      "position": [
+        0,
+        1
+      ],
+      "notation": "b1h"
+    },
+    {
+      "turn": 43,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "h_wall",
+      "position": [
+        5,
+        2
+      ],
+      "notation": "c6h"
+    },
+    {
+      "turn": 44,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "h_wall",
+      "position": [
+        0,
+        3
+      ],
+      "notation": "d1h"
+    },
+    {
+      "turn": 45,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        6,
+        2
+      ],
+      "notation": "c7"
+    },
+    {
+      "turn": 46,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "h_wall",
+      "position": [
+        6,
+        2
+      ],
+      "notation": "c7h"
+    },
+    {
+      "turn": 47,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        6,
+        1
+      ],
+      "notation": "b7"
+    },
+    {
+      "turn": 48,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        6,
+        4
+      ],
+      "notation": "e7"
+    },
+    {
+      "turn": 49,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        7,
+        1
+      ],
+      "notation": "b8"
+    },
+    {
+      "turn": 50,
+      "player": 2,
+      "agent": "Baseline agent",
+      "action_type": "move",
+      "position": [
+        6,
+        3
+      ],
+      "notation": "d7"
+    },
+    {
+      "turn": 51,
+      "player": 1,
+      "agent": "Minimax agent",
+      "action_type": "move",
+      "position": [
+        8,
+        1
+      ],
+      "notation": "b9"
+    }
+  ],
+  "final_board_ascii": "   a   b   c   d   e   f   g   h   i\n9  .   1   .   . | .   .   .   .   .  9\n           \u2550\u2550\u2550\u2550\u2550                    \n8  .   .   .   . | .   . | .   .   .  8\n           \u2550\u2550\u2550\u2550\u2550                    \n7  .   .   .   2   .   . | .   .   .  7\n           \u2550\u2550\u2550\u2550\u2550       \u2550\u2550\u2550\u2550\u2550        \n6  .   .   .   . | .   . | .   .   .  6\n           \u2550\u2550\u2550\u2550\u2550           \u2550\u2550\u2550\u2550\u2550    \n5  .   .   .   . | . | . | .   .   .  5\n       \u2550\u2550\u2550\u2550\u2550   \u2550\u2550\u2550\u2550\u2550   \u2550\u2550\u2550\u2550\u2550        \n4  .   .   .   .   . | .   .   .   .  4\n               \u2550\u2550\u2550\u2550\u2550                \n3  .   .   .   .   .   .   .   .   .  3\n                   \u2550\u2550\u2550\u2550\u2550            \n2  .   .   .   .   .   .   .   .   .  2\n       \u2550\u2550\u2550\u2550\u2550   \u2550\u2550\u2550\u2550\u2550                \n1  .   .   .   .   .   .   .   .   .  1\n   a   b   c   d   e   f   g   h   i"
+}
