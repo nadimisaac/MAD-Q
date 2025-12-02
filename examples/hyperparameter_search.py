@@ -20,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from src.agents.minimax_agent import MinimaxAgent
 from src.game.config import load_game_config
 from src.game.state import GameResult, State, create_initial_state
+from src.utils.elo_ratings import EloRatingSystem
 
 
 @dataclass
@@ -64,6 +65,8 @@ class TournamentStats:
     draws: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
     total_games: Dict[str, int] = field(default_factory=lambda: defaultdict(int))
     avg_move_time_ms: Dict[str, float] = field(default_factory=dict)
+    match_history: List[Dict] = field(default_factory=list)
+    elo_system: EloRatingSystem = field(default_factory=lambda: EloRatingSystem(k=32, initial_rating=1500))
 
     def record_game(self, config1_name: str, config2_name: str, winner_name: str | None):
         """Record the outcome of a single game."""
@@ -79,6 +82,16 @@ class TournamentStats:
         else:
             self.wins[config2_name] += 1
             self.losses[config1_name] += 1
+
+        # Update Elo ratings
+        self.elo_system.process_game(config1_name, config2_name, winner_name)
+
+        # Record match in history
+        self.match_history.append({
+            'player1_config': config1_name,
+            'player2_config': config2_name,
+            'winner_config': winner_name
+        })
 
     def get_win_rate(self, config_name: str) -> float:
         """Calculate win rate for a configuration."""
@@ -293,10 +306,14 @@ def save_results(
     results = {
         "rankings": [],
         "detailed_stats": {},
+        "all_results": [],
+        "match_history": stats.match_history,
     }
 
     for config_name, win_rate, wins, losses, draws in stats.get_rankings():
         config = config_map[config_name]
+        elo_rating = stats.elo_system.get_rating(config_name)
+
         results["rankings"].append({
             "rank": len(results["rankings"]) + 1,
             "config_name": config_name,
@@ -307,6 +324,7 @@ def save_results(
             "draws": draws,
             "total_games": stats.total_games[config_name],
             "avg_move_time_ms": stats.avg_move_time_ms.get(config_name, 0.0),
+            "final_elo": elo_rating,
         })
 
         results["detailed_stats"][config_name] = {
@@ -316,7 +334,19 @@ def save_results(
             "draws": draws,
             "total_games": stats.total_games[config_name],
             "win_rate": win_rate,
+            "final_elo": elo_rating,
         }
+
+        # Add to all_results for heatmap plotting
+        results["all_results"].append({
+            "config_name": config_name,
+            "parameters": config.to_dict(),
+            "final_elo": elo_rating,
+            "win_rate": win_rate,
+            "wins": wins,
+            "losses": losses,
+            "draws": draws,
+        })
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, 'w') as f:
@@ -326,23 +356,28 @@ def save_results(
 
 
 def print_rankings(stats: TournamentStats, top_n: int = 10):
-    """Print top N configurations by win rate."""
-    print("\n" + "=" * 80)
+    """Print top N configurations by Elo rating."""
+    print("\n" + "=" * 90)
     print("TOURNAMENT RESULTS")
-    print("=" * 80)
+    print("=" * 90)
 
-    rankings = stats.get_rankings()
+    # Get rankings by Elo
+    elo_rankings = stats.elo_system.get_rankings()
 
-    print(f"\nTop {min(top_n, len(rankings))} Configurations:\n")
-    print(f"{'Rank':<6} {'Configuration':<30} {'Win Rate':<10} {'W-L-D':<15} {'Avg Time (ms)':<15}")
-    print("-" * 80)
+    print(f"\nTop {min(top_n, len(elo_rankings))} Configurations (by Elo Rating):\n")
+    print(f"{'Rank':<6} {'Configuration':<30} {'Elo':<8} {'Win Rate':<10} {'W-L-D':<15} {'Time (ms)':<12}")
+    print("-" * 90)
 
-    for rank, (config_name, win_rate, wins, losses, draws) in enumerate(rankings[:top_n], 1):
+    for rank, (config_name, elo_rating) in enumerate(elo_rankings[:top_n], 1):
+        win_rate = stats.get_win_rate(config_name)
+        wins = stats.wins.get(config_name, 0)
+        losses = stats.losses.get(config_name, 0)
+        draws = stats.draws.get(config_name, 0)
         wld = f"{wins}-{losses}-{draws}"
         avg_time = stats.avg_move_time_ms.get(config_name, 0.0)
-        print(f"{rank:<6} {config_name:<30} {win_rate:>8.1%}  {wld:<15} {avg_time:>10.2f}")
+        print(f"{rank:<6} {config_name:<30} {elo_rating:<8.0f} {win_rate:>8.1%}  {wld:<15} {avg_time:>10.2f}")
 
-    print("\n" + "=" * 80)
+    print("\n" + "=" * 90)
 
 
 def parse_args() -> argparse.Namespace:
@@ -408,8 +443,8 @@ def main() -> int:
     if args.fine:
         path_weights = [8.0, 10.0, 12.0, 15.0, 20.0]
         progress_weights = [0.5, 1.0, 1.5, 2.0, 3.0]
-        wall_weights = [1.0, 2.0, 3.0, 4.0, 5.0]
-        print("Using FINE grid (5x5x5 = 125 configurations)")
+        wall_weights = [1.0, 2.0, 3.0]
+        print("Using FINE grid (5x5x3 = 75 configurations)")
     elif args.coarse:
         path_weights = [8.0, 12.0, 16.0]
         progress_weights = [1.0, 2.0, 3.0]
