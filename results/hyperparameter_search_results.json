@@ -1,0 +1,843 @@
+{
+  "rankings": [
+    {
+      "rank": 1,
+      "config_name": "P8.0_Pr3.0_W5.0",
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 3.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.6807692307692308,
+      "wins": 177,
+      "losses": 83,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 26.636016885651173
+    },
+    {
+      "rank": 2,
+      "config_name": "P8.0_Pr2.0_W5.0",
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 2.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.6692307692307692,
+      "wins": 174,
+      "losses": 86,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 26.72625769928134
+    },
+    {
+      "rank": 3,
+      "config_name": "P8.0_Pr1.0_W5.0",
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 1.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.6307692307692307,
+      "wins": 164,
+      "losses": 96,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 25.7449676265487
+    },
+    {
+      "rank": 4,
+      "config_name": "P12.0_Pr2.0_W5.0",
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 2.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5538461538461539,
+      "wins": 144,
+      "losses": 116,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 25.997874913600878
+    },
+    {
+      "rank": 5,
+      "config_name": "P8.0_Pr1.0_W3.0",
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 1.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5480769230769231,
+      "wins": 142,
+      "losses": 117,
+      "draws": 1,
+      "total_games": 260,
+      "avg_move_time_ms": 27.247970741484096
+    },
+    {
+      "rank": 6,
+      "config_name": "P12.0_Pr1.0_W3.0",
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 1.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5384615384615384,
+      "wins": 140,
+      "losses": 120,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 25.711959907537647
+    },
+    {
+      "rank": 7,
+      "config_name": "P16.0_Pr1.0_W5.0",
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 1.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5307692307692308,
+      "wins": 138,
+      "losses": 122,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 25.391412785253614
+    },
+    {
+      "rank": 8,
+      "config_name": "P16.0_Pr3.0_W5.0",
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 3.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5307692307692308,
+      "wins": 138,
+      "losses": 122,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 26.02500242544562
+    },
+    {
+      "rank": 9,
+      "config_name": "P12.0_Pr1.0_W1.0",
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 1.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5269230769230769,
+      "wins": 137,
+      "losses": 123,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 24.13065859853696
+    },
+    {
+      "rank": 10,
+      "config_name": "P12.0_Pr3.0_W5.0",
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 3.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5230769230769231,
+      "wins": 136,
+      "losses": 124,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 26.326830707822758
+    },
+    {
+      "rank": 11,
+      "config_name": "P8.0_Pr2.0_W3.0",
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 2.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5038461538461538,
+      "wins": 131,
+      "losses": 129,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 26.23988710464129
+    },
+    {
+      "rank": 12,
+      "config_name": "P16.0_Pr1.0_W1.0",
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 1.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5038461538461538,
+      "wins": 131,
+      "losses": 129,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 24.693735550349068
+    },
+    {
+      "rank": 13,
+      "config_name": "P16.0_Pr2.0_W5.0",
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 2.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.5,
+      "wins": 130,
+      "losses": 130,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 24.656607690639767
+    },
+    {
+      "rank": 14,
+      "config_name": "P12.0_Pr2.0_W3.0",
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 2.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.49615384615384617,
+      "wins": 129,
+      "losses": 131,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 25.50936748155389
+    },
+    {
+      "rank": 15,
+      "config_name": "P16.0_Pr2.0_W1.0",
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 2.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.49615384615384617,
+      "wins": 129,
+      "losses": 131,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 29.08949755241535
+    },
+    {
+      "rank": 16,
+      "config_name": "P8.0_Pr3.0_W3.0",
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 3.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.49230769230769234,
+      "wins": 128,
+      "losses": 132,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 26.495210901327773
+    },
+    {
+      "rank": 17,
+      "config_name": "P12.0_Pr1.0_W5.0",
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 1.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.48846153846153845,
+      "wins": 127,
+      "losses": 133,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 24.475400685888864
+    },
+    {
+      "rank": 18,
+      "config_name": "P8.0_Pr1.0_W1.0",
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 1.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.4807692307692308,
+      "wins": 125,
+      "losses": 135,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 25.223556604207822
+    },
+    {
+      "rank": 19,
+      "config_name": "P16.0_Pr1.0_W3.0",
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 1.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.47307692307692306,
+      "wins": 123,
+      "losses": 137,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 25.18449357633603
+    },
+    {
+      "rank": 20,
+      "config_name": "P16.0_Pr3.0_W3.0",
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 3.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.47307692307692306,
+      "wins": 123,
+      "losses": 137,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 25.792534535370436
+    },
+    {
+      "rank": 21,
+      "config_name": "P16.0_Pr2.0_W3.0",
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 2.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.4576923076923077,
+      "wins": 119,
+      "losses": 141,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 24.860536294067014
+    },
+    {
+      "rank": 22,
+      "config_name": "P12.0_Pr3.0_W3.0",
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 3.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.45384615384615384,
+      "wins": 118,
+      "losses": 142,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 26.484846010495183
+    },
+    {
+      "rank": 23,
+      "config_name": "P16.0_Pr3.0_W1.0",
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 3.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.41346153846153844,
+      "wins": 107,
+      "losses": 152,
+      "draws": 1,
+      "total_games": 260,
+      "avg_move_time_ms": 30.166518822246772
+    },
+    {
+      "rank": 24,
+      "config_name": "P8.0_Pr3.0_W1.0",
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 3.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.4115384615384615,
+      "wins": 107,
+      "losses": 153,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 28.775672518567124
+    },
+    {
+      "rank": 25,
+      "config_name": "P12.0_Pr2.0_W1.0",
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 2.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.38461538461538464,
+      "wins": 100,
+      "losses": 160,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 30.069085894080963
+    },
+    {
+      "rank": 26,
+      "config_name": "P8.0_Pr2.0_W1.0",
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 2.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.38076923076923075,
+      "wins": 99,
+      "losses": 161,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 30.96751662166361
+    },
+    {
+      "rank": 27,
+      "config_name": "P12.0_Pr3.0_W1.0",
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 3.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "win_rate": 0.3576923076923077,
+      "wins": 93,
+      "losses": 167,
+      "draws": 0,
+      "total_games": 260,
+      "avg_move_time_ms": 28.427368989151113
+    }
+  ],
+  "detailed_stats": {
+    "P8.0_Pr3.0_W5.0": {
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 3.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 177,
+      "losses": 83,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.6807692307692308
+    },
+    "P8.0_Pr2.0_W5.0": {
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 2.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 174,
+      "losses": 86,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.6692307692307692
+    },
+    "P8.0_Pr1.0_W5.0": {
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 1.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 164,
+      "losses": 96,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.6307692307692307
+    },
+    "P12.0_Pr2.0_W5.0": {
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 2.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 144,
+      "losses": 116,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.5538461538461539
+    },
+    "P8.0_Pr1.0_W3.0": {
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 1.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 142,
+      "losses": 117,
+      "draws": 1,
+      "total_games": 260,
+      "win_rate": 0.5480769230769231
+    },
+    "P12.0_Pr1.0_W3.0": {
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 1.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 140,
+      "losses": 120,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.5384615384615384
+    },
+    "P16.0_Pr1.0_W5.0": {
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 1.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 138,
+      "losses": 122,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.5307692307692308
+    },
+    "P16.0_Pr3.0_W5.0": {
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 3.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 138,
+      "losses": 122,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.5307692307692308
+    },
+    "P12.0_Pr1.0_W1.0": {
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 1.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 137,
+      "losses": 123,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.5269230769230769
+    },
+    "P12.0_Pr3.0_W5.0": {
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 3.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 136,
+      "losses": 124,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.5230769230769231
+    },
+    "P8.0_Pr2.0_W3.0": {
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 2.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 131,
+      "losses": 129,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.5038461538461538
+    },
+    "P16.0_Pr1.0_W1.0": {
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 1.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 131,
+      "losses": 129,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.5038461538461538
+    },
+    "P16.0_Pr2.0_W5.0": {
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 2.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 130,
+      "losses": 130,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.5
+    },
+    "P12.0_Pr2.0_W3.0": {
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 2.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 129,
+      "losses": 131,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.49615384615384617
+    },
+    "P16.0_Pr2.0_W1.0": {
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 2.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 129,
+      "losses": 131,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.49615384615384617
+    },
+    "P8.0_Pr3.0_W3.0": {
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 3.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 128,
+      "losses": 132,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.49230769230769234
+    },
+    "P12.0_Pr1.0_W5.0": {
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 1.0,
+        "wall_weight": 5.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 127,
+      "losses": 133,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.48846153846153845
+    },
+    "P8.0_Pr1.0_W1.0": {
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 1.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 125,
+      "losses": 135,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.4807692307692308
+    },
+    "P16.0_Pr1.0_W3.0": {
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 1.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 123,
+      "losses": 137,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.47307692307692306
+    },
+    "P16.0_Pr3.0_W3.0": {
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 3.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 123,
+      "losses": 137,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.47307692307692306
+    },
+    "P16.0_Pr2.0_W3.0": {
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 2.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 119,
+      "losses": 141,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.4576923076923077
+    },
+    "P12.0_Pr3.0_W3.0": {
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 3.0,
+        "wall_weight": 3.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 118,
+      "losses": 142,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.45384615384615384
+    },
+    "P16.0_Pr3.0_W1.0": {
+      "parameters": {
+        "path_weight": 16.0,
+        "progress_weight": 3.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 107,
+      "losses": 152,
+      "draws": 1,
+      "total_games": 260,
+      "win_rate": 0.41346153846153844
+    },
+    "P8.0_Pr3.0_W1.0": {
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 3.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 107,
+      "losses": 153,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.4115384615384615
+    },
+    "P12.0_Pr2.0_W1.0": {
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 2.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 100,
+      "losses": 160,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.38461538461538464
+    },
+    "P8.0_Pr2.0_W1.0": {
+      "parameters": {
+        "path_weight": 8.0,
+        "progress_weight": 2.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 99,
+      "losses": 161,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.38076923076923075
+    },
+    "P12.0_Pr3.0_W1.0": {
+      "parameters": {
+        "path_weight": 12.0,
+        "progress_weight": 3.0,
+        "wall_weight": 1.0,
+        "depth": 2,
+        "max_wall_moves": 8
+      },
+      "wins": 93,
+      "losses": 167,
+      "draws": 0,
+      "total_games": 260,
+      "win_rate": 0.3576923076923077
+    }
+  }
+}

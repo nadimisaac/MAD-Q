@@ -12,6 +12,7 @@ dependencies = [
     "torch>=2.0.0",
     "pyyaml>=6.0",
     "gymnasium>=0.29.0",
+    "pygame>=2.5.0",
 ]
 
 [project.optional-dependencies]
