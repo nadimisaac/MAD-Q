@@ -7,19 +7,26 @@ class TDTrain:
         self,
         learning_rate: float = 0.01,
         discount_factor: float = 0.99,
-        initial_weights: Optional[np.ndarray] = None
+        initial_weights: Optional[np.ndarray] = None,
+        num_features: int = 3,
     ):
         """
         Args:
             learning_rate: alpha, step size for gradient descent
             discount_factor: gamma, how much to value future rewards (used in td error)
             initial_weights: Starting weights [path, progress, wall], 
-                        defaults to [12.0, 1.5, 2.0]
+                        defaults to random initialization from uniform[-0.01, 0.01]
         """
 
         self.learning_rate = learning_rate
         self.discount_factor = discount_factor
-        self.weights = initial_weights if initial_weights is not None else np.array([12.0, 1.5, 2.0])
+        
+        if initial_weights is not None:
+            self.weights = initial_weights
+        else:
+            # random initial weights sampled from uniform distribution between -0.01, 0.01
+            rand = np.random.default_rng()
+            self.weights = rand.uniform(-0.01, 0.01, size=num_features)
     
     def compute_value(self, features: np.ndarray) -> float:
         return features @ self.weights

@@ -73,11 +73,9 @@ def train(
         config_name: Game configuration to use
         verbose: Print progress
     """
-    # Initialize trainer with default weights
     trainer = TDTrain(
         learning_rate=learning_rate,
         discount_factor=discount_factor,
-        initial_weights=np.array([12.0, 1.5, 2.0])
     )
     
     # Load game config
