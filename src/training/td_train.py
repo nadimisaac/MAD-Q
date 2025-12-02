@@ -24,9 +24,9 @@ class TDTrain:
         if initial_weights is not None:
             self.weights = initial_weights
         else:
-            # random initial weights sampled from uniform distribution between -0.01, 0.01
+            # random initial weights sampled from uniform distribution between 0.5, 1.5
             rand = np.random.default_rng()
-            self.weights = rand.uniform(-0.01, 0.01, size=num_features)
+            self.weights = rand.uniform(0.5, 1.5, size=num_features)
     
     def compute_value(self, features: np.ndarray) -> float:
         return features @ self.weights
