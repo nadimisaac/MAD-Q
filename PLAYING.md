@@ -2,7 +2,27 @@
 
 ## Quick Start
 
-To play a human vs human game:
+### Pygame GUI (Recommended)
+
+Play with a graphical interface:
+
+```bash
+# Human vs Human
+uv run python examples/play_pygame.py
+
+# Human vs AI
+uv run python examples/play_pygame_vs_ai.py
+
+# Different board sizes
+uv run python examples/play_pygame.py --config small
+uv run python examples/play_pygame.py --config tiny
+```
+
+See [Pygame UI Documentation](docs/PYGAME_UI.md) for detailed controls and features.
+
+### Terminal (ASCII)
+
+Play in the terminal with ASCII graphics:
 
 ```bash
 # Standard 9x9 board with 10 walls per player
