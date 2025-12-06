@@ -17,6 +17,7 @@ from src.game.config import load_game_config
 from src.ui.pygame_ui import PygameUI
 from src.agents.random_agent import RandomAgent
 from src.agents.baseline_agent import BaselineAgent
+from src.agents.minimax_agent import MinimaxAgent
 
 
 def main():
@@ -33,7 +34,7 @@ def main():
         "--opponent",
         type=str,
         default="baseline",
-        choices=["random", "baseline"],
+        choices=["random", "baseline", "minimax"],
         help="AI opponent type (default: baseline)"
     )
     parser.add_argument(
@@ -43,6 +44,18 @@ def main():
         choices=[1, 2],
         help="Which player the human controls (default: 1)"
     )
+    parser.add_argument(
+        "--depth",
+        type=int,
+        default=3,
+        help="Minimax search depth in plies (default: 3, only used with --opponent minimax)"
+    )
+    parser.add_argument(
+        "--max-wall-moves",
+        type=int,
+        default=8,
+        help="Wall placement branching limit for minimax (default: 8, use 0 for no limit, only used with --opponent minimax)"
+    )
     args = parser.parse_args()
 
     # Load game configuration
@@ -51,6 +64,10 @@ def main():
     print(f"Each player has {config.walls_per_player} walls")
     print(f"You are Player {args.human_player}")
     print(f"Opponent: {args.opponent}")
+    if args.opponent == "minimax":
+        wall_limit_label = args.max_wall_moves if args.max_wall_moves > 0 else "unlimited"
+        print(f"  - Search depth: {args.depth} plies")
+        print(f"  - Wall branching limit: {wall_limit_label}")
     print()
     print("Controls:")
     print("  - Click on a cell to move your pawn")
@@ -69,8 +86,15 @@ def main():
     # Create AI opponent with player number
     if args.opponent == "random":
         ai_agent = RandomAgent(ai_player)
-    else:
+    elif args.opponent == "baseline":
         ai_agent = BaselineAgent(ai_player)
+    else:  # minimax
+        max_walls = None if args.max_wall_moves <= 0 else args.max_wall_moves
+        ai_agent = MinimaxAgent(
+            player_number=ai_player,
+            depth=args.depth,
+            max_wall_moves=max_walls
+        )
 
     # Create UI
     ui = PygameUI(state)
