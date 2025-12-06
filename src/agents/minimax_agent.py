@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 import random
+import numpy as np
 from typing import List, Optional, Tuple
 
 from .base_agent import BaseAgent
@@ -70,6 +71,34 @@ class MinimaxAgent(BaseAgent):
             legal_moves.sort()
             return legal_moves[0]
         return best_move
+
+    # --------------------------------------------------------------------- #
+    # Feature Extractor for TD Learning Eval Function
+    # --------------------------------------------------------------------- #
+
+    def extract_td_features(self, state: State) -> np.ndarray:
+        opponent = state.get_opponent(self.player_number)
+        board_size = state.config.board_size
+        walls_per_player = state.config.walls_per_player
+
+        my_path = self._shortest_path_length(state, self.player_number)
+        opp_path = self._shortest_path_length(state, opponent)
+        path_score = opp_path - my_path
+
+        progress_score = self._progress_to_goal(state, self.player_number) - self._progress_to_goal(state, opponent)
+        wall_score = state.walls_remaining[self.player_number] - state.walls_remaining[opponent]
+        
+        # normalize our eval function features
+        normalized_path_score = path_score / board_size
+        normalized_progress_score = progress_score / board_size
+        normalized_wall_score = wall_score / walls_per_player if walls_per_player > 0 else 0.0
+        
+        td_features = [normalized_path_score, normalized_progress_score, normalized_wall_score]
+
+        return np.array(td_features, dtype=np.float64)
+
+
+        
 
     # --------------------------------------------------------------------- #
     # Core Minimax Search
