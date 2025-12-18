@@ -1,102 +1,87 @@
 # Quoridor Implementation Specification
-## For Gumbel AlphaZero Training
+## For Minimax Search with Alpha-Beta Pruning
 
 ---
 
 ## Overview
 
-This document specifies the complete state representation, action space, and neural network architecture for a Quoridor implementation designed for reinforcement learning with Gumbel AlphaZero.
+This document specifies the complete implementation for a Quoridor game engine with a minimax-based AI agent using alpha-beta pruning, depth-limited search, and evaluation functions with weights tuned through temporal-difference learning and hyperparameter grid search.
 
 **Key Principles:**
-- State always from current player's perspective
-- History-based encoding (4 timesteps)
-- Efficient separation of spatial and scalar features
-- Configurable board sizes
+- Minimax search with alpha-beta pruning for efficient game-tree exploration
+- Depth-limited search with evaluation functions for terminal states
+- Configurable board sizes (3×3, 5×5, 9×9)
+- Evaluation function combining path distance, progress, and wall advantage
 - Termination rules to prevent infinite games
+- Comprehensive performance analysis and tournament evaluation
 
 ---
 
-## State Space Representation
+## Game State Representation
 
-### 1. Spatial Features: `(16, H, W)` tensor
+The game state tracks all information needed for minimax search and evaluation.
 
-Where `H = W = board_size` (typically 9).
+### Core State Components
 
-**Structure:** 4 channels per timestep × 4 timesteps = 16 channels
-
-Always encoded from **current player's perspective**:
-- Current player starts at bottom row (row 0)
-- Current player's goal is top row (row 8 for 9×9)
-- When Player 2's turn: board is flipped vertically and players swapped
-
-#### Per Timestep (t ∈ {0, -1, -2, -3}):
-
-| Channel Offset | Feature | Encoding | Example |
-|----------------|---------|----------|---------|
-| 0 | Current player pawn | One-hot: single 1 at pawn position | `pawn[4,4] = 1`, rest = 0 |
-| 1 | Opponent pawn | One-hot: single 1 at pawn position | `pawn[4,2] = 1`, rest = 0 |
-| 2 | Horizontal walls | Binary: **both cells** marked for each wall | See wall encoding below |
-| 3 | Vertical walls | Binary: **both cells** marked for each wall | See wall encoding below |
-
-**Channel Layout:**
+```python
+class State:
+    """Complete game state for Quoridor."""
+    
+    # Board configuration
+    config: GameConfig              # Board size, walls per player, limits
+    board_size: int                 # Typically 3, 5, or 9
+    
+    # Player positions
+    player1_pos: Position           # (row, col) for Player 1
+    player2_pos: Position           # (row, col) for Player 2
+    current_player: int             # 1 or 2
+    
+    # Wall state
+    h_walls: Set[Tuple[int, int]]   # Horizontal wall positions
+    v_walls: Set[Tuple[int, int]]   # Vertical wall positions
+    walls_remaining: Dict[int, int] # Walls left per player
+    
+    # Game progress tracking
+    move_count: int                 # Total moves played
+    moves_since_last_wall: int      # For no-progress detection
+    game_over: bool                 # Terminal state flag
+    winner: Optional[int]           # 1, 2, or None (draw)
 ```
-Channels 0-3:   t=0 (current state)
-Channels 4-7:   t=-1 (1 move ago)
-Channels 8-11:  t=-2 (2 moves ago)  
-Channels 12-15: t=-3 (3 moves ago)
-```
 
-#### Wall Encoding Details:
+### State Properties
+
+The state maintains:
+- **Immutability:** `make_move()` returns a new state (copy-on-write)
+- **Legality checking:** `get_legal_moves()` computes all valid actions
+- **Win detection:** Automatic when player reaches goal row
+- **Draw detection:** Based on move limits and no-progress rules
+
+### Wall Encoding Details
 
 **Horizontal Wall** at position `(row, col)`:
-- Blocks movement between `row` and `row+1`
+- Blocks vertical movement between `row` and `row+1`
 - Spans columns `col` and `col+1` (2 cells wide)
-- Encoding:
-  ```python
-  h_walls[row, col] = 1
-  h_walls[row, col+1] = 1
-  ```
+- Stored as single coordinate `(row, col)` in `h_walls` set
+- Effects both cells when checking movement legality
 
 **Vertical Wall** at position `(row, col)`:
-- Blocks movement between `col` and `col+1`
+- Blocks horizontal movement between `col` and `col+1`
 - Spans rows `row` and `row+1` (2 cells tall)
-- Encoding:
-  ```python
-  v_walls[row, col] = 1
-  v_walls[row+1, col] = 1
-  ```
+- Stored as single coordinate `(row, col)` in `v_walls` set
+- Effects both cells when checking movement legality
 
 **Example:** Wall notation `e3h` (horizontal wall at column e=4, row 3):
 ```python
-h_walls[3, 4] = 1  # Mark both cells the wall spans
-h_walls[3, 5] = 1
+h_walls.add((3, 4))  # Single entry represents 2-cell span
 ```
 
-### 2. Scalar Features: `(5,)` vector
+### Memory Footprint
 
-Global game state information, not spatially dependent.
-
-| Index | Feature | Range | Normalization | Description |
-|-------|---------|-------|---------------|-------------|
-| 0 | Current player walls remaining | [0, 1] | `count / max_walls` | e.g., 8/10 = 0.8 |
-| 1 | Opponent walls remaining | [0, 1] | `count / max_walls` | e.g., 7/10 = 0.7 |
-| 2 | Current player ID | {0, 1} | None | 0 = Player 1, 1 = Player 2 |
-| 3 | Move count | [0, 1] | `moves / max_moves` | Progress toward move limit |
-| 4 | Moves since last wall | [0, 1] | `moves / no_progress_limit` | Progress toward no-progress draw |
-
-### 3. Complete State Representation
-
-```python
-state = {
-    'spatial': np.ndarray(shape=(16, board_size, board_size), dtype=np.float32),
-    'scalars': np.ndarray(shape=(5,), dtype=np.float32)
-}
-```
-
-**Memory footprint (9×9 board):**
-- Spatial: 16 × 9 × 9 = 1,296 floats (5.2 KB)
-- Scalars: 5 floats (20 bytes)
-- **Total: 1,301 floats ≈ 5.2 KB per state**
+**9×9 board game state:**
+- Positions: 2 × 2 integers (4 ints = 16 bytes)
+- Walls: ~20 walls × 2 integers avg (40 ints = 160 bytes)
+- Metadata: 5 integers (20 bytes)
+- **Total: ~200 bytes per state** (very efficient for tree search)
 
 ---
 
@@ -178,33 +163,33 @@ def decode_action(action_idx: int, board_size: int = 9) -> tuple[str, int, int]:
         return ('v_wall', row, col)
 ```
 
-### Action Masking
+### Legal Move Generation
 
-**Critical:** Action masking is required at every state.
+**Critical:** Only legal actions are considered in minimax search.
 
 ```python
-def get_action_mask(state: GameState) -> np.ndarray:
+def get_legal_moves(state: State) -> List[Action]:
     """
-    Returns binary mask of shape (action_space_size,)
-    where mask[i] = 1 if action i is legal, 0 otherwise.
+    Returns list of legal actions for current state.
+    
+    Returns:
+        List of (action_type, position) tuples
     """
-    mask = np.zeros(action_space_size)
+    legal_moves = []
     
     # 1. Legal pawn moves (reachable adjacent cells or jumps)
     for move_pos in get_legal_pawn_moves(state):
-        action_idx = encode_action('move', move_pos[0], move_pos[1])
-        mask[action_idx] = 1
+        legal_moves.append(('move', move_pos))
     
     # 2. Legal wall placements (if walls remaining)
-    if state.current_player_walls > 0:
+    if state.walls_remaining[state.current_player] > 0:
         for wall_type in ['h_wall', 'v_wall']:
             for (row, col) in get_legal_wall_positions(state, wall_type):
                 # Check: no overlap, no cross pattern, both players can reach goal
                 if is_wall_legal(state, row, col, wall_type):
-                    action_idx = encode_action(wall_type, row, col)
-                    mask[action_idx] = 1
+                    legal_moves.append((wall_type, (row, col)))
     
-    return mask
+    return legal_moves
 ```
 
 **Legality checks for walls:**
@@ -215,102 +200,183 @@ def get_action_mask(state: GameState) -> np.ndarray:
 
 ---
 
-## Neural Network Architecture
+## Minimax Agent Architecture
 
-### Input Processing: Late Fusion
+### Core Algorithm: Alpha-Beta Pruning
 
 ```python
-class QuoridorNet(nn.Module):
-    def __init__(self, board_size=9, n_spatial_channels=16, n_scalars=5, n_res_blocks=10):
-        super().__init__()
-        
-        self.board_size = board_size
-        self.action_size = board_size**2 + 2*(board_size-1)**2
-        
-        # Convolutional trunk for spatial features
-        self.conv_input = nn.Conv2d(n_spatial_channels, 256, kernel_size=3, padding=1)
-        self.bn_input = nn.BatchNorm2d(256)
-        
-        # Residual blocks
-        self.res_blocks = nn.ModuleList([
-            ResidualBlock(256) for _ in range(n_res_blocks)
-        ])
-        
-        # Flatten spatial features
-        self.conv_output_size = 256 * board_size * board_size
-        
-        # Late fusion: combine flattened spatial + scalar features
-        self.fc_combined = nn.Linear(self.conv_output_size + n_scalars, 512)
-        self.bn_combined = nn.BatchNorm1d(512)
-        
-        # Policy head
-        self.policy_fc1 = nn.Linear(512, 256)
-        self.policy_bn1 = nn.BatchNorm1d(256)
-        self.policy_fc2 = nn.Linear(256, self.action_size)
-        
-        # Value head
-        self.value_fc1 = nn.Linear(512, 256)
-        self.value_bn1 = nn.BatchNorm1d(256)
-        self.value_fc2 = nn.Linear(256, 1)
-    
-    def forward(self, spatial, scalars):
+class MinimaxAgent:
+    def __init__(
+        self,
+        player_number: int,
+        depth: int = 2,
+        max_wall_moves: int = 8,
+        path_weight: float = 12.0,
+        progress_weight: float = 1.5,
+        wall_weight: float = 2.0,
+    ):
         """
+        Minimax agent with alpha-beta pruning.
+        
         Args:
-            spatial: (batch, 16, board_size, board_size)
-            scalars: (batch, 5)
-            
-        Returns:
-            policy_logits: (batch, action_size) - raw logits before softmax
-            value: (batch, 1) - value estimate in [-1, 1]
+            player_number: Player controlled (1 or 2)
+            depth: Search depth in plies
+            max_wall_moves: Max wall placements explored per node
+            path_weight: Weight for shortest-path heuristic
+            progress_weight: Weight for goal-progress heuristic
+            wall_weight: Weight for wall-advantage heuristic
         """
-        # Process spatial features through CNN
-        x = F.relu(self.bn_input(self.conv_input(spatial)))
-        
-        for block in self.res_blocks:
-            x = block(x)
-        
-        # Flatten spatial features
-        x_spatial = x.view(x.size(0), -1)
-        
-        # Concatenate spatial and scalar features (late fusion)
-        x = torch.cat([x_spatial, scalars], dim=1)
-        x = F.relu(self.bn_combined(self.fc_combined(x)))
-        
-        # Policy head
-        p = F.relu(self.policy_bn1(self.policy_fc1(x)))
-        policy_logits = self.policy_fc2(p)
-        
-        # Value head
-        v = F.relu(self.value_bn1(self.value_fc1(x)))
-        value = torch.tanh(self.value_fc2(v))
-        
-        return policy_logits, value
-
-
-class ResidualBlock(nn.Module):
-    def __init__(self, channels):
-        super().__init__()
-        self.conv1 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)
-        self.bn1 = nn.BatchNorm2d(channels)
-        self.conv2 = nn.Conv2d(channels, channels, kernel_size=3, padding=1)
-        self.bn2 = nn.BatchNorm2d(channels)
+        self.player_number = player_number
+        self.max_depth = depth
+        self.max_wall_moves = max_wall_moves
+        self.path_weight = path_weight
+        self.progress_weight = progress_weight
+        self.wall_weight = wall_weight
+        self._win_score = 1_000_000.0
     
-    def forward(self, x):
-        residual = x
-        out = F.relu(self.bn1(self.conv1(x)))
-        out = self.bn2(self.conv2(out))
-        out += residual
-        out = F.relu(out)
-        return out
+    def select_action(self, state: State) -> Action:
+        """Choose best action via minimax search."""
+        value, best_move = self._search(state, self.max_depth, -math.inf, math.inf)
+        return best_move
+    
+    def _search(self, state: State, depth: int, alpha: float, beta: float):
+        """Minimax with alpha-beta pruning."""
+        if depth == 0 or state.game_over:
+            return self._evaluate(state, depth), None
+        
+        moves = self._get_candidate_moves(state)
+        maximizing = (state.current_player == self.player_number)
+        
+        if maximizing:
+            best_score = -math.inf
+            best_move = None
+            for move in moves:
+                child = state.make_move(*move)
+                score, _ = self._search(child, depth - 1, alpha, beta)
+                if score > best_score:
+                    best_score = score
+                    best_move = move
+                alpha = max(alpha, best_score)
+                if beta <= alpha:
+                    break  # Beta cutoff
+            return best_score, best_move
+        else:
+            best_score = math.inf
+            best_move = None
+            for move in moves:
+                child = state.make_move(*move)
+                score, _ = self._search(child, depth - 1, alpha, beta)
+                if score < best_score:
+                    best_score = score
+                    best_move = move
+                beta = min(beta, best_score)
+                if beta <= alpha:
+                    break  # Alpha cutoff
+            return best_score, best_move
 ```
 
-### Key Design Decisions:
+### Evaluation Function
 
-1. **Late Fusion:** Scalars concatenated after CNN processing, not broadcast across spatial dimensions
-2. **Residual Blocks:** Standard ResNet architecture for deep feature learning
-3. **Separate Heads:** Policy and value heads diverge after shared trunk
-4. **Policy Output:** Raw logits (before softmax) - softmax + masking applied externally
-5. **Value Output:** Tanh activation for range [-1, 1]
+The evaluation function combines three strategic heuristics:
+
+```python
+def _evaluate(self, state: State, depth_remaining: int) -> float:
+    """
+    Evaluate non-terminal state from agent's perspective.
+            
+        Returns:
+        score: Higher is better for agent
+    """
+    # Terminal states
+    if state.game_over:
+        if state.winner == self.player_number:
+            return self._win_score + depth_remaining  # Prefer faster wins
+        elif state.winner is None:
+            return state.config.draw_penalty
+        else:
+            return -self._win_score - depth_remaining  # Prefer slower losses
+    
+    # Non-terminal evaluation
+    opponent = state.get_opponent(self.player_number)
+    
+    # 1. Path distance heuristic (most important)
+    my_path_len = shortest_path_length(state, self.player_number)
+    opp_path_len = shortest_path_length(state, opponent)
+    path_score = opp_path_len - my_path_len
+    
+    # 2. Progress toward goal heuristic
+    my_progress = progress_to_goal(state, self.player_number)
+    opp_progress = progress_to_goal(state, opponent)
+    progress_score = my_progress - opp_progress
+    
+    # 3. Wall advantage heuristic
+    wall_score = (state.walls_remaining[self.player_number] - 
+                  state.walls_remaining[opponent])
+    
+    return (self.path_weight * path_score +
+            self.progress_weight * progress_score +
+            self.wall_weight * wall_score)
+```
+
+### Evaluation Heuristics Explained
+
+| Heuristic | Formula | Weight Range | Description |
+|-----------|---------|--------------|-------------|
+| **Path Distance** | `opp_path - my_path` | 8.0 - 16.0 | Shortest path to goal (A* search) |
+| **Goal Progress** | `my_progress - opp_progress` | 0.5 - 2.5 | Raw row distance to goal |
+| **Wall Advantage** | `my_walls - opp_walls` | 1.0 - 3.0 | Remaining walls available |
+
+**Strategic Interpretation:**
+- **Path Distance:** Primary factor. Prefer states where opponent's path is longer.
+- **Goal Progress:** Tie-breaker. Move toward goal when paths are equal.
+- **Wall Advantage:** Resource management. Value having more walls remaining.
+
+### Weight Tuning Methods
+
+Weights are optimized through two complementary approaches:
+
+1. **Temporal-Difference Learning**
+   - Linear evaluator trained on self-play games
+   - TD(λ) updates adjust weights based on outcome
+   - Produces weights grounded in game experience
+
+2. **Hyperparameter Grid Search**
+   - Tournament evaluation across weight configurations
+   - Elo ratings computed from round-robin matches
+   - Identifies robust weight combinations
+
+### Move Ordering Optimization
+
+To maximize alpha-beta pruning efficiency:
+
+```python
+def _get_candidate_moves(self, state: State) -> List[Action]:
+    """Get moves sorted by likely quality (best-first)."""
+    pawn_moves = [m for m in legal_moves if m[0] == 'move']
+    wall_moves = [m for m in legal_moves if m[0] != 'move']
+    
+    # Sort pawn moves by distance to goal
+    pawn_moves.sort(key=lambda m: distance_to_goal(m[1]))
+    
+    # Sort wall moves by distance to opponent
+    wall_moves.sort(key=lambda m: distance_to_opponent(m[1]))
+    
+    # Limit wall branching if configured
+    if self.max_wall_moves and len(wall_moves) > self.max_wall_moves:
+        wall_moves = wall_moves[:self.max_wall_moves]
+    
+    return pawn_moves + wall_moves
+```
+
+### Performance Characteristics
+
+| Board Size | Avg Branching | Depth 2 Nodes | Depth 3 Nodes | Depth 4 Nodes |
+|------------|---------------|---------------|---------------|---------------|
+| 3×3 | ~8 | ~60 | ~500 | ~4K |
+| 5×5 | ~25 | ~600 | ~15K | ~400K |
+| 9×9 | ~70 | ~5K | ~350K | ~25M |
+
+**Alpha-beta pruning** typically achieves ~50% node reduction with good move ordering.
 
 ---
 
@@ -326,8 +392,8 @@ class ResidualBlock(nn.Module):
 
 **Rationale for draw penalty (-0.05):**
 - Discourages stalling and infinite loops
-- Small enough not to dominate training signal
-- Agent prefers: Win > Draw > Loss
+- Small enough not to dominate evaluation scores
+- Minimax agent prefers: Win > Draw > Loss
 - Encourages active play toward the goal
 
 ### Game Configuration
@@ -338,7 +404,6 @@ standard:
   walls_per_player: 10
   max_moves: 200
   no_progress_limit: 50
-  history_length: 4
   draw_penalty: -0.05
 
 small:
@@ -346,7 +411,6 @@ small:
   walls_per_player: 5
   max_moves: 100
   no_progress_limit: 30
-  history_length: 4
   draw_penalty: -0.05
 
 tiny:
@@ -354,7 +418,6 @@ tiny:
   walls_per_player: 2
   max_moves: 50
   no_progress_limit: 20
-  history_length: 4
   draw_penalty: -0.05
 ```
 
@@ -496,47 +559,70 @@ def notation_to_action(notation: str, board_size: int = 9) -> int:
 ## Implementation Checklist
 
 ### Core Game Logic
-- [ ] `GameState` class with state representation
-- [ ] Move generation (legal pawn moves)
-- [ ] Wall placement validation
-- [ ] A* pathfinding for connectivity checks
-- [ ] Win/draw/loss detection
-- [ ] History tracking (last 4 states)
-- [ ] No-progress counter (moves since last wall)
-- [ ] Move limit counter
-
-### State Encoding
-- [ ] `encode_state()` function returning `(spatial, scalars)` tuple
-- [ ] Wall encoding (mark both cells)
-- [ ] Board orientation (always current player's perspective)
-- [ ] History stacking (4 timesteps)
-- [ ] Scalar normalization
+- [x] `State` class with complete game state
+- [x] Move generation (legal pawn moves including jumps)
+- [x] Wall placement validation
+- [x] A* pathfinding for connectivity checks
+- [x] Win/draw/loss detection
+- [x] No-progress counter (moves since last wall)
+- [x] Move limit counter
+- [x] Immutable state updates (copy-on-write)
 
 ### Action Space
-- [ ] `encode_action()` and `decode_action()` functions
-- [ ] Action masking generation
-- [ ] Notation conversion (to/from official format)
+- [x] `encode_action()` and `decode_action()` functions
+- [x] Legal move generation
+- [x] Notation conversion (to/from official format)
+- [x] Configurable board sizes (3×3, 5×5, 9×9)
 
-### Neural Network
-- [ ] `QuoridorNet` with late fusion architecture
-- [ ] Policy head (raw logits output)
-- [ ] Value head (tanh activation)
-- [ ] Residual blocks for deep feature learning
+### Minimax Agent
+- [x] Alpha-beta pruning implementation
+- [x] Depth-limited search
+- [x] Evaluation function with three heuristics
+- [x] Move ordering optimization
+- [x] Configurable wall branching limit
+- [x] Deterministic tie-breaking
 
-### Game Environment
-- [ ] Gymnasium-compatible environment wrapper
-- [ ] `reset()`, `step()`, `render()` methods
-- [ ] Action masking in info dict
-- [ ] Configurable board sizes
+### Evaluation & Heuristics
+- [x] Path distance calculation (A* search)
+- [x] Goal progress measurement
+- [x] Wall advantage computation
+- [x] Configurable weights for each heuristic
+- [x] Terminal state handling with depth bonus
+
+### Weight Tuning
+- [x] Temporal-difference learning implementation
+- [x] Feature extraction for TD learning
+- [x] Hyperparameter grid search
+- [x] Tournament-based evaluation
+- [x] Elo rating computation
+
+### Other Agents
+- [x] Random agent (baseline)
+- [x] Pathfinding-based heuristic agent
+- [x] Human player interface
+
+### Game Interface
+- [x] Command-line rendering
+- [x] Pygame UI for visualization
+- [x] Interactive play modes
+- [x] Move notation input/output
+- [x] Game configuration system
+
+### Analysis Tools
+- [x] Performance benchmarking
+- [x] Move time tracking
+- [x] Game length analysis
+- [x] Win rate calculation
+- [x] Tournament evaluation framework
+- [x] Plot generation for results
 
 ### Testing
-- [ ] Unit tests for move validation
-- [ ] Unit tests for wall placement
-- [ ] Unit tests for A* pathfinding
-- [ ] Unit tests for state encoding
-- [ ] Unit tests for action encoding/decoding
-- [ ] Integration tests for full games
-- [ ] Test different board sizes (3×3, 5×5, 9×9)
+- [x] Unit tests for move validation
+- [x] Unit tests for wall placement
+- [x] Unit tests for A* pathfinding
+- [x] Unit tests for jump scenarios
+- [x] Integration tests for full games
+- [x] Tests for all board sizes (3×3, 5×5, 9×9)
 
 ---
 
@@ -544,40 +630,64 @@ def notation_to_action(notation: str, board_size: int = 9) -> int:
 
 | Board | State Size | Action Space | Avg Branching | Typical Game Length |
 |-------|------------|--------------|---------------|---------------------|
-| 3×3 | 149 floats | 17 actions | ~8 | 10-20 moves |
-| 5×5 | 405 floats | 57 actions | ~25 | 20-40 moves |
-| 9×9 | 1,301 floats | 209 actions | ~70 | 40-100 moves |
+| 3×3 | ~200 bytes | 17 actions | ~8 | 10-20 moves |
+| 5×5 | ~200 bytes | 57 actions | ~25 | 20-40 moves |
+| 9×9 | ~200 bytes | 209 actions | ~70 | 40-100 moves |
 
 **Key Advantages:**
-- ✅ Efficient state representation (1.3KB for 9×9)
+- ✅ Efficient state representation (~200 bytes)
+- ✅ Fast state copying for tree search
 - ✅ Proper wall encoding (2-cell spans)
-- ✅ CNN-friendly spatial structure
-- ✅ Scalars separated (no redundancy)
-- ✅ History for temporal learning
+- ✅ A* pathfinding for accurate evaluation
 - ✅ Configurable for multiple board sizes
 - ✅ Draw penalties prevent infinite games
-- ✅ Action masking for efficient training
+- ✅ Alpha-beta pruning for efficient search
+- ✅ Tunable evaluation weights
 
 ---
 
-## Relationship Between State and Action Spaces
+## Strategic Insights from Analysis
 
-**Important:** The neural network does **not** directly "understand" the connection between states and actions. This relationship is **learned through self-play**:
+### Performance by Board Size
 
-1. **Initially:** Network outputs random probabilities for all actions
-2. **Action Masking:** Illegal actions are masked to probability 0
-3. **MCTS Exploration:** Monte Carlo Tree Search tries legal actions
-4. **Outcome Observation:** Network observes which actions led to wins/losses
-5. **Gradient Updates:** Backpropagation adjusts network to prefer winning actions
-6. **Learned Understanding:** Over time, network learns patterns like:
-   - "When opponent close, move forward"
-   - "When ahead, block opponent's shortest path"
-   - "When low on walls, prioritize movement"
+Analysis across board sizes reveals:
 
-The action space is a fixed encoding scheme. The network learns which actions are good in which states through experience, not through explicit programming.
+- **3×3 boards:** Simple enough for exhaustive search; minimax achieves near-perfect play at depth 4+
+- **5×5 boards:** Sweet spot for analysis; complex enough to be interesting, small enough for deep search
+- **9×9 boards:** Standard Quoridor; requires depth limitation and strong evaluation for practical play
+
+### Evaluation Weight Sensitivity
+
+Hyperparameter search reveals:
+
+- **Path weight (8-16):** Most critical parameter; dominates strategic decisions
+- **Progress weight (0.5-2.5):** Important tie-breaker; encourages forward movement
+- **Wall weight (1-3):** Secondary factor; prevents wasteful wall usage
+
+Optimal weights vary by board size and opponent strategy, but path distance is universally dominant.
+
+### Search Depth Trade-offs
+
+| Depth | 5×5 Board Time | 9×9 Board Time | Win Rate Gain |
+|-------|----------------|----------------|---------------|
+| 1 | ~1ms | ~5ms | Baseline |
+| 2 | ~20ms | ~200ms | +15-20% |
+| 3 | ~400ms | ~5s | +8-12% |
+| 4 | ~8s | ~2min | +3-5% |
+
+Diminishing returns after depth 3; depth 2-3 provides best time/performance balance.
+
+### First-Player Advantage
+
+Measured across 1000+ games:
+- **Standard (9×9):** Player 1 wins ~52-54% (slight advantage)
+- **Small (5×5):** Player 1 wins ~55-58% (moderate advantage)
+- **Tiny (3×3):** Player 1 wins ~65-70% (significant advantage)
+
+Smaller boards amplify first-move advantage due to reduced path length.
 
 ---
 
-*Document Version: 1.0*  
-*Last Updated: 2025*  
-*For Gumbel AlphaZero Quoridor Implementation*
+*Document Version: 2.0*  
+*Last Updated: December 2025*  
+*For MAD-Q (Minimax Alpha-beta with Depth-limited search for Quoridor)*

@@ -1,11 +1,11 @@
-# GAZE-Quoridor
-**G**umbel · **A**lpha · **Z**ero · **E**ngine — *Quoridor*
+# MAD-Q
+**M**inimax · **A**lpha-beta with **D**epth-limited search for **Q**uoridor
 
-A deep reinforcement learning agent for the board game **Quoridor**, based on the AlphaZero algorithm and enhanced with Gumbel-based Monte Carlo Tree Search.
+An AI agent for the board game **Quoridor** using minimax search with alpha-beta pruning, depth-limited search, and evaluation functions with weights tuned through temporal-difference learning and hyperparameter grid search.
 
 ## Overview
 
-This project will implement a Quoridor game engine optimized for reinforcement learning training with Gumbel AlphaZero.
+This project implements a Quoridor game engine with a competitive minimax agent, comprehensive performance analysis tools, and tournament-based evaluation across multiple board configurations.
 
 ## Installation
 
@@ -189,8 +189,9 @@ uv run pytest --cov=src
 
 ## Documentation
 
-- [docs/SPECIFICATION.md](docs/SPECIFICATION.md) - Complete technical specification including state representation, action encoding, neural network architecture, and all game rules
+- [docs/SPECIFICATION.md](docs/SPECIFICATION.md) - Complete technical specification including state representation, action encoding, and all game rules
 - [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) - Repository setup, build order, and implementation checklist
+- [ANALYSIS_README.md](ANALYSIS_README.md) - Comprehensive guide for running performance analysis, hyperparameter search, and generating publication-quality plots
 
 ## License
 
