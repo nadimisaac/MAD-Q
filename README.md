@@ -1,5 +1,5 @@
 # MAD-Q
-**M**inimax · **A**lpha-beta with **D**epth-limited search for **Q**uoridor
+**M**inimax · **A**lpha-beta · **D**epth-limited search _for_ **Q**uoridor
 
 An AI agent for the board game **Quoridor** using minimax search with alpha-beta pruning, depth-limited search, and evaluation functions with weights tuned through temporal-difference learning and hyperparameter grid search.
 
@@ -196,3 +196,4 @@ uv run pytest --cov=src
 ## License
 
 This project is for educational purposes as part of Stanford CS221 (Artificial Intelligence: Principles and Techniques).
+
